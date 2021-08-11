@@ -1,4 +1,4 @@
-# csgo_rank_finder
+# csgoValorant_rank_finder
 1. ```pip install -r requirements.txt``` to install the dependencies.
 2. Run main.py
 3. Type 'c' for csgo or 'v' for valorant
