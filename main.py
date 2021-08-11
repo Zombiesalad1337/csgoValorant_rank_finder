@@ -3,6 +3,11 @@ import json, requests, time
 from bs4 import BeautifulSoup
 from prettytable import PrettyTable
 import cloudscraper
+import urllib.parse
+import re
+
+# enter steamid of your friends
+friends = []
 
 
 def steamid_to_64bit(steamid):
@@ -43,7 +48,7 @@ def reveal_rank(steam64):
         webbrowser.BackgroundBrowser("C://Program Files//Google//Chrome//Application//chrome.exe")
         )
     
-    friends = [76561198404529974,76561198816159059, 76561198430918852, 76561198435814829, 76561198807553119, 76561198405059981, 76561198059938292, 76561198401931678]
+    global friends
     
     
     for i in steam64:
@@ -54,7 +59,7 @@ def reveal_rank(steam64):
     
 def find_rank(steam64id):
     
-    friends = [76561198404529974,76561198816159059, 76561198430918852, 76561198435814829, 76561198807553119, 76561198405059981, 76561198059938292, 76561198401931678]
+    global friends
 
     for id in steam64id:
         if id not in friends:
@@ -70,7 +75,7 @@ def find_rank(steam64id):
 
 def find_rank_new(steam64id):
     
-    friends = [76561198404529974,76561198816159059, 76561198430918852, 76561198435814829, 76561198807553119, 76561198405059981, 76561198059938292, 76561198401931678]
+    global friends
     rows = []
     tb = PrettyTable()
 
@@ -136,7 +141,107 @@ def find_rank_new(steam64id):
     tb.add_rows(rows)
     print(tb)
 
+def take_input_val():
+    s = ""
+    ign = []
+    while (s!="#end"):
+        s = input()
+        ign.append(s)
+    return ign[:-1]
+
+
+def find_rank_val(ign):
+    tb = PrettyTable()
+    rows = []
+    tb.field_names = ['Name', 'Rank', 'Best', 'Hours', 'Matches', 'WR', 'MainAgent']
+
+    # TODO: add exception handling when ign doesn't exist or haven't signed up for tracker.gg
+    url_placeholder = []
+    #ign cant contain '#', according to https://riotidsymbols.com/
+    for names in ign:
+        # TODO: replace space too
+        names = urllib.parse.quote_plus(names)
+        url_placeholder.append(names)
+        # print(url_placeholder)
+
+    table_rows = []
+
+    # to reference names from list ign
+    count = 0
+
+    for placeholder in url_placeholder:
+        url = 'https://tracker.gg/valorant/profile/riot/{}/overview?playlist=competitive'.format(placeholder)
+
+        flag = False
+        while not flag:
+            try:
+                sc = cloudscraper.create_scraper()
+                html_text = sc.get(url).text
+                flag = True
+            except:
+                time.sleep(2)
+                continue
+                # waits until scraper starts? bottleneck?
+        
+        soup = BeautifulSoup(html_text, 'lxml')
+        # rank - div class = 'rating-entry__info' - parent, div class = 'value' inside
+        rank_div = soup.find_all('div', {'class': 'rating-entry__info'})
+        rank_texts = []
+        for i in rank_div:
+            s = i.get_text()
+            s = re.sub(r"[\n\t\s]*", "", s)
+            rank_texts.append(s)
+        
+        rank = rank_texts[0][6:]
+        best_rank = rank_texts[1]
+
+        # matches and hours
+        title_stats = soup.find('div', {'class': 'title-stats'})
+        title_stats_text = re.sub(r"[\n\t\s]*", "", title_stats.get_text())
+        hours = title_stats_text[:title_stats_text.index('h')]
+        matches = title_stats_text[title_stats_text.find('Time') + 4 : -7]
+
+        # WR
+        win_ratio_span = soup.find('span', {'title': 'Win %'})
+        win_ratio_span_parent_text = win_ratio_span.find_parent().get_text()
+        win_ratio_span_parent_text = re.sub(r"[\n\t\s]*", "", win_ratio_span_parent_text)
+
+        # rat's nest, basically finds the text b/w the first '%' and the second '%' signs
+        win_ratio = win_ratio_span_parent_text[4 : (win_ratio_span_parent_text[5 : ]).index('%') + 5]
+
+        # main agent
+        agent_name = soup.find('span', {'class': 'agent__name'})
+        main_agent = agent_name.get_text()
+
+        # adding to prettytable's rows
+        rows.append([ign[count], rank, best_rank, hours, matches, win_ratio, main_agent])
+        count += 1
+
+    tb.add_rows(rows)
+    print(tb)
+
+
+        
+            
+        
+
 
 # reveal_rank(take_input())
 # find_rank(take_input())
-find_rank_new(take_input())
+
+# TODO: run this to find csgo rank
+# find_rank_new(take_input())
+
+
+game = input("csgo/val (c/v)?: " )
+if game == 'c':
+    print("Paste")
+    find_rank_new(take_input())
+
+elif game == 'v':
+    print("Paste")
+    find_rank_val(take_input_val())
+else:
+    print("exiting")
+    exit(1)
+
