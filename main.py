@@ -192,26 +192,45 @@ def find_rank_val(ign):
             s = re.sub(r"[\n\t\s]*", "", s)
             rank_texts.append(s)
         
-        rank = rank_texts[0][6:]
-        best_rank = rank_texts[1]
+        try:
+            rank = rank_texts[0][6:]
+            best_rank = rank_texts[1]
+        except:
+            rank = "Unknown"
+            best_rank = "Unknown"
 
         # matches and hours
-        title_stats = soup.find('div', {'class': 'title-stats'})
-        title_stats_text = re.sub(r"[\n\t\s]*", "", title_stats.get_text())
-        hours = title_stats_text[:title_stats_text.index('h')]
-        matches = title_stats_text[title_stats_text.find('Time') + 4 : -7]
+        try:
+            title_stats = soup.find('div', {'class': 'title-stats'})
+            title_stats_text = re.sub(r"[\n\t\s]*", "", title_stats.get_text())
+            hours = title_stats_text[:title_stats_text.index('h')]
+            matches = title_stats_text[title_stats_text.find('Time') + 4 : -7]
+        except:
+            hours = "Unknown"
+            matches = "Unknown"
+        
 
         # WR
-        win_ratio_span = soup.find('span', {'title': 'Win %'})
-        win_ratio_span_parent_text = win_ratio_span.find_parent().get_text()
-        win_ratio_span_parent_text = re.sub(r"[\n\t\s]*", "", win_ratio_span_parent_text)
+        try:
+            win_ratio_span = soup.find('span', {'title': 'Win %'})
+            win_ratio_span_parent_text = win_ratio_span.find_parent().get_text()
+            win_ratio_span_parent_text = re.sub(r"[\n\t\s]*", "", win_ratio_span_parent_text)
 
-        # rat's nest, basically finds the text b/w the first '%' and the second '%' signs
-        win_ratio = win_ratio_span_parent_text[4 : (win_ratio_span_parent_text[5 : ]).index('%') + 5]
+            # rat's nest, basically finds the text b/w the first '%' and the second '%' signs
+            win_ratio = win_ratio_span_parent_text[4 : (win_ratio_span_parent_text[5 : ]).index('%') + 5]
+        except:
+            win_ratio = "Unknown"
+        
+
+        
+        
 
         # main agent
-        agent_name = soup.find('span', {'class': 'agent__name'})
-        main_agent = agent_name.get_text()
+        try:
+            agent_name = soup.find('span', {'class': 'agent__name'})
+            main_agent = agent_name.get_text()
+        except:
+            main_agent = "Unknown"
 
         # adding to prettytable's rows
         rows.append([ign[count], rank, best_rank, hours, matches, win_ratio, main_agent])
