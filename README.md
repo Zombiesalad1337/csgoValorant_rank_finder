@@ -1,11 +1,13 @@
 # csgo_rank_finder
 1. ```pip install -r requirements.txt``` to install the dependencies.
 2. Run main.py
-3. Copy-paste the 'status' command output (starting with #userid and till #end) from csgo console to the input and wait for the results. 
+3. Type 'c' for csgo or 'v' for valorant
+4. For csgo, copy-paste the 'status' command output (starting with #userid and till #end) from csgo console to the input and wait for the results.
+For valorant, type the Riot IDs with taglines, and end with "#emd".
 
 **Note : The results may take some time to show based on the number of players in the input/server.**
 
-# Sample Inputs
+# Sample Inputs (csgo)
 
 ## 1
 
@@ -49,7 +51,7 @@
 
 ```
 
-# Sample Output
+# Sample Output (csgo)
 
 ```
 +----------------------------------+---------+---------+------+
@@ -73,3 +75,31 @@
 +----------------------------------+---------+---------+------+
 
 ```
+
+# Sample Inputs (valorant)
+
+## 1
+
+```
+HereCozCSIsDown#Gaben
+KausicK#5208
+VicniX#6428
+ShuZ#0007
+#end
+
+```
+
+# Sample Output (valorant)
+
+```
++-----------------------+-----------+------------------------+-------+---------+------+-----------+
+|          Name         |    Rank   |          Best          | Hours | Matches |  WR  | MainAgent |
++-----------------------+-----------+------------------------+-------+---------+------+-----------+
+| HereCozCSIsDown#Gaben |   Gold1   |   Gold3EPISODE2:ACT3   |   76  |   129   | 54.3 |  Phoenix  |
+|      KausicK#5208     | Platinum2 | Platinum2EPISODE3:ACT1 |  332  |   550   | 51.1 |    Omen   |
+|      VicniX#6428      | Platinum1 | Diamond1EPISODE2:ACT2  |  312  |   520   | 48.6 |   Reyna   |
+|       ShuZ#0007       |  Silver2  | Platinum1EPISODE1:ACT1 |  300  |   493   | 50.1 | Brimstone |
++-----------------------+-----------+------------------------+-------+---------+------+-----------+
+```
+
+
