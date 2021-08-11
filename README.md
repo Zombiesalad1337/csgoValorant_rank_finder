@@ -76,7 +76,7 @@ For valorant, type the Riot IDs with taglines, and end with "#emd".
 
 ```
 
-# Sample Inputs (valorant)
+# Sample Input (valorant)
 
 
 ```
