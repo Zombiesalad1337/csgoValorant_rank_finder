@@ -3,7 +3,7 @@
 2. Run main.py
 3. Type 'c' for csgo or 'v' for valorant
 4. For csgo, copy-paste the 'status' command output (starting with #userid and till #end) from csgo console to the input and wait for the results.
-For valorant, type the Riot IDs with taglines, and end with "#emd".
+For valorant, type the Riot IDs with taglines, and end with "#end".
 
 **Note : The results may take some time to show based on the number of players in the input/server.**
 
