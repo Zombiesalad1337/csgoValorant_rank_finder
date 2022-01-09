@@ -38,7 +38,6 @@ For valorant, type the Riot IDs with taglines, and end with "#end".
 # 383 6 "AYAHUASCA" STEAM_1:1:564213075 00:14 50 56 spawning 196608
 # 382 7 "Arion" STEAM_1:0:222132123 00:32 63 0 active 196608
 # 358 8 "🅣🅨🅢🅞🅝" STEAM_1:1:418070643 09:53 59 0 active 786432
-# 260 9 "GHøsTツÁnshu" STEAM_1:0:564337581 50:50 127 0 active 196608
 # 362 10 "itElyas" STEAM_1:0:229309217 03:59 148 0 active 196608
 # 252 12 "☛ Cypher Boy ☚" STEAM_1:1:588272711 56:07 135 0 active 786432
 # 292 13 "wassup" STEAM_1:1:522849968 40:05 96 0 active 786432
@@ -61,7 +60,6 @@ For valorant, type the Riot IDs with taglines, and end with "#end".
 |            RED WOLF              |    SE   | Unknown | 116  |
 |             itElyas              |   GN3   |   MG2   | 500  |
 |            saneJoker             |   GN3   |   MG2   | 306  |
-| cover the face, fuck the base!!  |    SE   |   SEM   | 114  |
 |              🅣🅨🅢🅞🅝            |   GN1   |   MG1   | 343  |
 |             Chris P              |   GN2   |   GN3   | 545  |
 |          Ralph Gaming            |   SEM   |   GN2   | 442  |
